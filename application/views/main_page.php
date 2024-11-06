@@ -149,9 +149,66 @@
                 <!-- Additional rows and columns can go here for other sections -->
                 
             </section><!-- /.content -->
+            <section class="col-lg-12 connectedSortable"> 
+                            <!-- Custom tabs (Charts with tabs)--> 
+                            <div class="nav-tabs-custom"> 
+                                <!-- Tabs within a box --> 
+                                <ul class="nav nav-tabs pull-right"> 
+                                    <!-- <li class="active"><a 
+href="#alamat-kantor" data-toggle="tab">Kantor</a></li> --> 
+                                    <li class="pull-left header"><i 
+class="fa fa-inbox"></i> Chart</li> 
+                                </ul> 
+                                <div class="tab-content no-padding"> 
+                                    <!-- Morris chart - Sales --> 
+                                    <div class="chart tab-pane active" 
+id="alamat-kantor" style="position: relative; height: 250px;"> 
+                                        <br/> 
+                                        <canvas id="myChart"></canvas> 
+                                    </div> 
+                                </div> 
+                            </div><!-- /.nav-tabs-custom --> 
+                        </section> 
         </aside><!-- /.right-side -->
     </div><!-- ./wrapper -->
 
     <?php include 'inc/jq.php'; ?>
+    <script> 
+            $(document).ready(function() { 
+                var ctx = docu
+ment.getElementById('myChart').getContext('2d'); 
+                var chart = new Chart(ctx, { 
+                    // The type of chart we want to create 
+                    type: 'bar', 
+                    responsive: true, 
+                    mainAspectRation: false, 
+ 
+                    // The data for our dataset 
+                    data: { 
+                        labels: <?php echo json_encode($chart['label']) ?>, 
+                        datasets: [{ 
+                            label: 'My First dataset', 
+                            backgroundColor: 'rgb(255, 99, 132)', 
+                            borderColor: 'rgb(255, 99, 132)', 
+                            data: <?php echo json_encode($chart['data']) ?> 
+                        }] 
+                    }, 
+ 
+                    // Configuration options go here 
+                    options: { 
+                        scales: { 
+                            yAxes: [{ 
+                                ticks: { 
+                                    beginAtZero: true, 
+                                    stepSize: 1, 
+                                } 
+                            }] 
+                        } 
+                    } 
+                });                 }); 
+                chart.canvas.parentNode.style.height = '500px'; 
+                chart.canvas.parentNode.style.width = '100%'; 
+            }); 
+        </script> 
 </body>
 </html>
